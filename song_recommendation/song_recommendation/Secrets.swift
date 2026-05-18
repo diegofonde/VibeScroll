@@ -6,6 +6,6 @@
 //
 
 struct Secrets {
-    static let supabaseKey = "sb_publishable_1B80sp2lOZ5GanBc3irapQ_Ws3ZBUgG"
-    static let supabaseUrl = "https://song-recommendation-api.supabase.co"
+    static let supabaseKey: String = "sb_publishable_1B80sp2lOZ5GanBc3irapQ_Ws3ZBUgG"
+    static let supabaseUrl: String = "https://kcfttrccgylazxtpxuzj.supabase.co"
 }
