@@ -17,9 +17,6 @@ struct song_recommendationApp: App {
         WindowGroup {
             ContentView()
                 .environment(store)
-                .onAppear {
-                    store.modelContext = EnvironmentValues().modelContext
-                }
         }
         .modelContainer(for: Playlist.self)
     }

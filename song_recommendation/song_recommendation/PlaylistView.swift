@@ -7,6 +7,7 @@
 
 // Code for Playlistview
 import SwiftUI
+import SwiftData 
 
 struct PlaylistView: View {
     let selectedPlaylist: Playlist // Stores selected playlist
@@ -42,44 +43,39 @@ struct PlaylistView: View {
                     .frame(height: 280)
                     .padding(.top, 20)
                     
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(Color.white.opacity(0.05))
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text("\(selectedPlaylist.name)")
-                                    .font(.title)
-                                    .foregroundStyle(
-                                        LinearGradient(
-                                            gradient: Gradient(colors: [
-                                                Color("BrandPrimary"),
-                                                Color("BrandSecondary")
-                                            ]),
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
+                    
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("\(selectedPlaylist.name)")
+                                .font(.title)
+                                .foregroundStyle(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [
+                                            Color("BrandPrimary"),
+                                            Color("BrandSecondary")
+                                        ]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
                                     )
-                                Text("\(selectedPlaylist.playlistDescription)")
-                                    .font(.body)
-                                    .foregroundStyle(
-                                        LinearGradient(
-                                            gradient: Gradient(colors: [
-                                                Color("BrandPrimary"),
-                                                Color("BrandSecondary")
-                                            ]),
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
+                                )
+                            Text("\(selectedPlaylist.playlistDescription)")
+                                .font(.body)
+                                .foregroundStyle(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [
+                                            Color("BrandPrimary"),
+                                            Color("BrandSecondary")
+                                        ]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
                                     )
-                                    .lineLimit(3)
-                            }
-                            .padding()
+                                )
+                                .lineLimit(3)
                         }
                         .padding()
-                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .padding(.horizontal)
                     .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
                     // What shows if there is no songs added yet
                     VStack(alignment: .leading, spacing: 16) {
@@ -157,3 +153,7 @@ struct ListCell: View {
     }
 }
 
+//#Preview {
+//    PlaylistView(selectedPlaylist: Playlist(name: "test", description: "potato"))
+//        .modelContainer(for: Playlist.self, inMemory: true)
+//}

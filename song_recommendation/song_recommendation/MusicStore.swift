@@ -21,18 +21,23 @@ import SwiftData
     init (songs: [SongDetail] = [], playlists: [Playlist] = [], modelContext: ModelContext? = nil) {
         self.songs = songs
         self.playlists = playlists
-        self.modelContext = modelContext
         
         // Code for grabbing locally stored data
-        let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        if let container = try? ModelContainer(for: Playlist.self, configurations: config) {
-                    let context = container.mainContext
-                    self.modelContext = context
-                    
-                    // Instantly grab whatever is stored locally through SwiftData
-                    let descriptor = FetchDescriptor<Playlist>(sortBy: [SortDescriptor(\.name)])
-                    self.playlists = (try? context.fetch(descriptor)) ?? []
-                }
+        if let providedContext = modelContext { // if statement if there is already existing data, the app will use that existing data
+            self.modelContext = providedContext
+            let descriptor = FetchDescriptor<Playlist>(sortBy: [SortDescriptor(\.name)])
+            self.playlists = (try? providedContext.fetch(descriptor)) ?? []
+        } else { // Else new instance of SwiftData will be created to store items locally
+            let config = ModelConfiguration(isStoredInMemoryOnly: true)
+            if let container = try? ModelContainer(for: Playlist.self, configurations: config) {
+                        let context = container.mainContext
+                        self.modelContext = context
+                        
+                        // Instantly grab whatever is stored locally through SwiftData
+                        let descriptor = FetchDescriptor<Playlist>(sortBy: [SortDescriptor(\.name)])
+                        self.playlists = (try? context.fetch(descriptor)) ?? []
+                    }
+        }
     }
     
     // Function to create playlist and also store it locally
